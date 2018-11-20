@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/InterfaceSpielwiese.iml" filepath="$PROJECT_DIR$/.idea/InterfaceSpielwiese.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Finances Priavate/Finances Priavate.iml" filepath="$PROJECT_DIR$/Finances Priavate/Finances Priavate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InterfaceSpielwiese/InterfaceSpielwiese.iml" filepath="$PROJECT_DIR$/InterfaceSpielwiese/InterfaceSpielwiese.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eclipse-workspace.iml" filepath="$PROJECT_DIR$/eclipse-workspace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test2/test2.iml" filepath="$PROJECT_DIR$/test2/test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ueb14/ueb14.iml" filepath="$PROJECT_DIR$/ueb14/ueb14.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ueb14_2/ueb14_2.iml" filepath="$PROJECT_DIR$/ueb14_2/ueb14_2.iml" />
     </modules>
   </component>
 </project>
