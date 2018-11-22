@@ -1,3 +1,5 @@
+package sample;
+
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -31,8 +33,8 @@ public class Main extends Application  {
     public void start(Stage primaryStage) throws Exception {
 
         //Input
-        TextField input = new TextField();
-        input.setPromptText("Do you like ROSYBROWN??");
+         TextField input = new TextField();
+         input.setPromptText("Do you like ROSYBROWN??");
 
 
         //Labels
