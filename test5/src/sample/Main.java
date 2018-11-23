@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application  {
 
     //Variablen
-    private static final String MAIN_NAME = "ask's InterfaceTest";
+    private static final String MAIN_NAME = "ask's & elm0s InterfaceTest";
     private static final String COMMIT_BUTTON_TEXT = "commit!";
     Button close;
     Button allertboxButton, confirmboxButton, commitButton;
