@@ -38,9 +38,9 @@ public class Main extends Application  {
 
 
         //Labels
-        Label label = new Label("Frage: Toll!");
-        Label label1 = new Label("Das ist der Inhallt des Buchungssystems\n aslkasfkjlakljgkjlagkjlag" +
-                "\n askjlghjaghjkajhskdj");
+        Label label = new Label("Frage: Super?");
+        Label label1 = new Label("Das ist der Inhallt des Buchungssystems\n Ganz viele tolle Buchungen" +
+                "\n Und noch mehr tolle Buchungen");
 
         // Buttons
         allertboxButton= new Button("Allertbox Test");
