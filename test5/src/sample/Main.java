@@ -104,7 +104,7 @@ public class Main extends Application  {
         layout.getChildren().addAll(allertboxButton, searchLayout, menuLayout);
 
         //Button functions
-        allertboxButton.setOnAction(e -> AltertBox.display("FehlerNachricht:  ","45782"));
+        allertboxButton.setOnAction(e -> AltertBox.display("FehlerNachricht:  ","ACHTUNG ACHTUNG DIESES PROGRAMM IST NICHT MEHR SICHER"));
         confirmboxButton.setOnAction(event -> {
             boolean ergebnis = ConfirmBox.display("Frage: ", "ja/nö");
             label.setText(String.valueOf(ergebnis));
@@ -142,7 +142,7 @@ public class Main extends Application  {
 
     private void closeProgramm(){
 
-        Boolean answer = ConfirmBox.display("Close the Programm", "sicher?! then get to zhe tschoopper");
+        Boolean answer = ConfirmBox.display("Close the Programm", "Machs aus!");
         if (answer ==true) mainWindow.close();
 
 
