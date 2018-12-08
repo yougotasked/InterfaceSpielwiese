@@ -1,8 +1,8 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,13 +14,28 @@ import javafx.stage.Stage;
 
 public class Main extends Application  {
 
-    //Variablen
+    //Konstanten
     private static final String MAIN_NAME = "ask's & elm0s InterfaceTest";
     private static final String COMMIT_BUTTON_TEXT = "commit!";
+
+    private static final double MAIN_WINDOW_MIN_WIDTH = 1300;
+    private static final double MAIN_WINDOW_MIN_HEIGHT = 800;
+    private static final double SEARCH_LAYOUT_MIN_WIDHT = 500;
+    private static final double SEARCH_LAYOUT_MIN_HEIGHT = 200;
+    private static final double BUCHEN_LAYOUT_MIN_WIDHT = 500;
+    private static final double BUCHEN_LAYOUT_MIN_HEIGHT = 200;
+    private static final double INFO_LAYOUT_MIN_WIDHT = 500;
+    private static final double INFO_LAYOUT_MIN_HEIGHT = 200;
+
+
+
+
     Button close;
     Button allertboxButton, confirmboxButton, commitButton;
     Stage mainWindow;
-    Scene mainScene, searchScene, bookItScene;
+    Scene mainScene;
+
+
 
 
 
@@ -39,8 +54,6 @@ public class Main extends Application  {
 
         //Labels
         Label label = new Label("Frage: Super?");
-        Label label1 = new Label("Das ist der Inhallt des Buchungssystems\n Ganz viele tolle Buchungen" +
-                "\n Und noch mehr tolle Buchungen");
 
         // Buttons
         allertboxButton= new Button("Allertbox Test");
@@ -59,29 +72,26 @@ public class Main extends Application  {
         menuLayout.setSpacing(3);
         menuLayout.getChildren().addAll(searchButton, bookItButton);
 
+
         //Searchlayout
-        GridPane searchLayout = new GridPane();
-        HBox searchbox = new HBox();
-        input.setMinWidth(500);
-        input.setMaxWidth(650);
-        searchbox.getChildren().setAll(label, input, commitButton);
+        GridPane searchLayout = LayoutBox.createSearchlayout(SEARCH_LAYOUT_MIN_WIDHT, SEARCH_LAYOUT_MIN_HEIGHT, "DArum gehts", "asdkjlaskjldjkalsd");
 
-        GridPane.setConstraints(searchbox, 0, 0 );
+        //AuswahlLayout
+        VBox auswahlLayout = LayoutBox.createAuswahlLayout(BUCHEN_LAYOUT_MIN_WIDHT, BUCHEN_LAYOUT_MIN_HEIGHT, "DArum gehts\n" +
+                "aslkdajskdjklasd" +
+                "\n" +
+                "aslkjdjkasldkjlasdkjlaskljdkjlasdjklajksfjkasd" +
+                "kajsdjklajklsdjklasd");
 
-        searchLayout.getChildren().addAll(searchbox);
-
-        searchLayout.setMinSize(650, 200);
-        searchLayout.setBorder(new Border(new BorderStroke(Color.ROSYBROWN,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        //InfoLayout
+        GridPane infoLayout = LayoutBox.createInfoLayout(INFO_LAYOUT_MIN_HEIGHT, INFO_LAYOUT_MIN_WIDHT, "KATEGORIE \n asdkjasklgfklasd");
 
 
-        //BuchenLayout
-        GridPane bookItLayout = new GridPane();
-        GridPane.setConstraints(label1, 0,0);
-        bookItLayout.getChildren().addAll(label1);
-        bookItLayout.setMinSize(650, 200);
-        bookItLayout.setBorder(new Border(new BorderStroke(Color.CYAN,
-                BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+        //LeftsideMenü
+        VBox leftside = new VBox();
+        leftside.setMinSize(500,600);
+        leftside.getChildren().addAll(searchLayout, auswahlLayout);
 
 
         //HeadLayout
@@ -91,17 +101,27 @@ public class Main extends Application  {
         layout.setHgap(10);
 
 
-        //Elementzuweisug fürs HeadLayout
-        //GridPane.setConstraints(searchButton, 0, 0);
-        //GridPane.setConstraints(bookItButton, 1, 0);
-        //GridPane.setHalignment(bookItButton, HPos.RIGHT);
-        //GridPane.setHalignment(searchButton, HPos.LEFT);
-        GridPane.setHalignment(menuLayout, HPos.LEFT);
-        GridPane.setConstraints(allertboxButton, 0,10);
-        GridPane.setConstraints(bookItLayout, 0, 2);
-        GridPane.setConstraints(searchLayout, 0,2);
+        //Grid Constraints für die dynamische Haftung am Fensterrand
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(10);
+        RowConstraints row2 = new RowConstraints();
+        row2.setPercentHeight(90);
+        RowConstraints row3 = new RowConstraints();
+        row3.setPercentHeight(5);
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(65);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(35);
 
-        layout.getChildren().addAll(allertboxButton, searchLayout, menuLayout);
+        layout.getRowConstraints().addAll(row1,row2,row3);
+        layout.getColumnConstraints().addAll(col1,col2);
+
+
+        layout.add(menuLayout, 0,0);
+        layout.add(leftside,0,1);
+        layout.add(infoLayout, 1, 1);
+        layout.add(allertboxButton, 0, 2);
+
 
         //Button functions
         allertboxButton.setOnAction(e -> AltertBox.display("FehlerNachricht:  ","ACHTUNG ACHTUNG DIESES PROGRAMM IST NICHT MEHR SICHER"));
@@ -118,18 +138,25 @@ public class Main extends Application  {
         });
 
         searchButton.setOnAction(event -> {
-            layout.getChildren().remove(bookItLayout);
-            layout.getChildren().setAll(allertboxButton ,searchLayout,menuLayout);
+            leftside.getChildren().remove(auswahlLayout);
+            auswahlLayout.setMinSize(500, 300);
+            searchLayout.setMinSize(500, 300);
+            leftside.getChildren().addAll(searchLayout, auswahlLayout);
+
         });
 
         bookItButton.setOnAction(event -> {
-            layout.getChildren().remove(searchLayout);
-            layout.getChildren().setAll(allertboxButton , bookItLayout, menuLayout);
+            leftside.getChildren().remove(searchLayout);
+            auswahlLayout.setMinSize(500, 600);
+            leftside.getChildren().addAll(auswahlLayout);
+
         });
 
-        //MainframegamepaingainMain
+        //Main
         mainScene = new Scene(layout);
         mainWindow = primaryStage;
+        mainWindow.setMinWidth(MAIN_WINDOW_MIN_WIDTH);
+        mainWindow.setMinHeight(MAIN_WINDOW_MIN_HEIGHT);
         mainWindow.setScene(mainScene);
         mainWindow.show();
         mainWindow.setOnCloseRequest(event ->{
@@ -144,9 +171,7 @@ public class Main extends Application  {
 
         Boolean answer = ConfirmBox.display("Close the Programm", "Machs aus!");
         if (answer ==true) mainWindow.close();
-
-
-
     }
+
 
 }
