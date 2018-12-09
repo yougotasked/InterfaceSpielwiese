@@ -183,7 +183,9 @@ public class Main extends Application  {
             TextField testfield = new TextField();
             testfield.setPromptText("Suchbegriff");
             ComboBox<String> operatorbox = new ComboBox<>();
+
             operatorbox.getItems().addAll("=", "<", "<=", ">", ">=" , "ungleich");
+            operatorbox.getSelectionModel().selectFirst();
             Button searchButton = new Button("Suchen");
             Button addSearchButton = new Button("+");
             layout.add(testfield, 0,0);
