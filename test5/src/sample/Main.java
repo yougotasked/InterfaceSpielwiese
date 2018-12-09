@@ -1,42 +1,39 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 public class Main extends Application  {
 
     //Konstanten
-    private static final String MAIN_NAME = "ask's & elm0s InterfaceTest";
-    private static final String COMMIT_BUTTON_TEXT = "commit!";
+    private static final String MAIN_NAME = "Test - Alles könner";
+    private static final String COMMIT_BUTTON_TEXT = "Commit";
 
-    private static final double MAIN_WINDOW_MIN_WIDTH = 1300;
-    private static final double MAIN_WINDOW_MIN_HEIGHT = 800;
-    private static final double SEARCH_LAYOUT_MIN_WIDHT = 500;
-    private static final double SEARCH_LAYOUT_MIN_HEIGHT = 200;
-    private static final double BUCHEN_LAYOUT_MIN_WIDHT = 500;
-    private static final double BUCHEN_LAYOUT_MIN_HEIGHT = 200;
-    private static final double INFO_LAYOUT_MIN_WIDHT = 500;
-    private static final double INFO_LAYOUT_MIN_HEIGHT = 200;
+    private static final double MAIN_WINDOW_MIN_WIDTH = 800;
+    private static final double MAIN_WINDOW_MIN_HEIGHT = 600;
+    private static final double SEARCH_LAYOUT_MIN_WIDHT = 300;
+    private static final double SEARCH_LAYOUT_MIN_HEIGHT = 450;
+    private static final double RESULT_LAYOUT_MIN_WIDHT = 300;
+    private static final double RESULT_LAYOUT_MIN_HEIGHT = 450;
+    private static final double INFO_LAYOUT_MIN_WIDHT = 300;
+    private static final double INFO_LAYOUT_MIN_HEIGHT = 450;
 
-
-
-
-    Button close;
-    Button allertboxButton, confirmboxButton, commitButton;
-    Stage mainWindow;
-    Scene mainScene;
-
-
-
+    //Variablen
+    private Stage mainWindow;
+    private Scene mainScene;
+    private int searchTermsCounter;
+    private List<String> searchTerms;
 
 
     public static void  main(String[] args){
@@ -47,131 +44,157 @@ public class Main extends Application  {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        //Input
-         TextField input = new TextField();
-         input.setPromptText("Do you like ROSYBROWN??");
+        //Buttons
+            //Menue Oben / Main Menu / topmenue
+            Button searchButton = new Button("Leihen");
+            Button closeButton = new Button("Hilfe");
+            Button testButton = new Button("Zurücknehmen");
 
 
-        //Labels
-        Label label = new Label("Frage: Super?");
+        //Root Borderpane
+        BorderPane root = new BorderPane();
 
-        // Buttons
-        allertboxButton= new Button("Allertbox Test");
-        confirmboxButton = new Button("Confirmboxtest");
-        commitButton = new Button(COMMIT_BUTTON_TEXT);
-        close = new Button("close");
-        Button searchButton = new Button("Suche");
-        Button bookItButton = new Button("Buchungssystem");
+            //Menü oben
+            AnchorPane topmenue = new AnchorPane();
+                //links
+                HBox topmenuelinks = new HBox ();
+                topmenuelinks.getChildren().addAll(searchButton,testButton);
+                //rechts
+                HBox topmenuerechts = new HBox();
+                topmenuerechts.getChildren().addAll(closeButton);
 
-        bookItButton.setStyle("-fx-background-color: #5F9EA0; -fx-border-color: #000000");
-        searchButton.setStyle("-fx-background-color: #FFC1C1; -fx-border-color: #000000");
+            topmenue.setLeftAnchor(topmenuelinks, 0.0);
+            topmenue.setRightAnchor(topmenuerechts, 0.0);
+            topmenue.getChildren().addAll(topmenuelinks,topmenuerechts);
+            topmenue.autosize();
 
+            //Menü rechts
+            //Menü unten
+            //Menü links
+            //Menü mitte
+                GridPane midmenue = new GridPane();
+                    //Links Hauptfeld
+                    VBox midmenuleft = new VBox();
 
-        //Menuelayout
-        HBox menuLayout = new HBox();
-        menuLayout.setSpacing(3);
-        menuLayout.getChildren().addAll(searchButton, bookItButton);
+                        ColumnConstraints col1 = new ColumnConstraints();
+                        col1.setPercentWidth(65);
+                        TitledPane searchlayout = searchLayout();
 
+                        TabPane chooselayout = new TabPane();
+                        chooselayout.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+                        chooselayout.autosize();
 
-        //Searchlayout
-        GridPane searchLayout = LayoutBox.createSearchlayout(SEARCH_LAYOUT_MIN_WIDHT, SEARCH_LAYOUT_MIN_HEIGHT, "DArum gehts", "asdkjlaskjldjkalsd");
+                        //TAB BÜCHER
+                        Tab books = new Tab("Bücher");
 
-        //AuswahlLayout
-        VBox auswahlLayout = LayoutBox.createAuswahlLayout(BUCHEN_LAYOUT_MIN_WIDHT, BUCHEN_LAYOUT_MIN_HEIGHT, "DArum gehts\n" +
-                "aslkdajskdjklasd" +
-                "\n" +
-                "aslkjdjkasldkjlasdkjlaskljdkjlasdjklajksfjkasd" +
-                "kajsdjklajklsdjklasd");
+                            TableView leasedBooks = new TableView();
+                            TableColumn colt1 = new TableColumn("ISBN");
+                            TableColumn colt2 = new TableColumn("Author ");
+                            TableColumn colt3 = new TableColumn("Titel");
+                            TableColumn colt4 = new TableColumn("Return-date");
+                            leasedBooks.getColumns().addAll(colt1, colt2, colt3, colt4);
 
-        //InfoLayout
-        GridPane infoLayout = LayoutBox.createInfoLayout(INFO_LAYOUT_MIN_HEIGHT, INFO_LAYOUT_MIN_WIDHT, "KATEGORIE \n asdkjasklgfklasd");
+                            leasedBooks.autosize();
+                            leasedBooks.setPrefHeight(9999999.9);
+                            books.setContent(leasedBooks);
+                        //TAB Kunden
+                        Tab customers = new Tab("Customer");
 
+                        //TAB Bücherverwaltung
+                        Tab bookManagement = new Tab("Bücherverwaltung");
+                        chooselayout.getTabs().addAll(books, customers,bookManagement);
 
-
-        //LeftsideMenü
-        VBox leftside = new VBox();
-        leftside.setMinSize(500,600);
-        leftside.getChildren().addAll(searchLayout, auswahlLayout);
-
-
-        //HeadLayout
-        GridPane layout = new GridPane();
-        layout.setPadding(new Insets(3, 3, 3, 3));
-        layout.setVgap(8);
-        layout.setHgap(10);
-
-
-        //Grid Constraints für die dynamische Haftung am Fensterrand
-        RowConstraints row1 = new RowConstraints();
-        row1.setPercentHeight(10);
-        RowConstraints row2 = new RowConstraints();
-        row2.setPercentHeight(90);
-        RowConstraints row3 = new RowConstraints();
-        row3.setPercentHeight(5);
-        ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(65);
-        ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(35);
-
-        layout.getRowConstraints().addAll(row1,row2,row3);
-        layout.getColumnConstraints().addAll(col1,col2);
+                    midmenuleft.getChildren().addAll(searchlayout, chooselayout);
+                    midmenuleft.autosize();
 
 
-        layout.add(menuLayout, 0,0);
-        layout.add(leftside,0,1);
-        layout.add(infoLayout, 1, 1);
-        layout.add(allertboxButton, 0, 2);
+                    //Rechts Infofeld
+                    VBox midmenuright = new VBox();
+                        ColumnConstraints col2 = new ColumnConstraints();
+                        col2.setPercentWidth(35);
+                        TitledPane searchlayout2 = searchLayout();
+
+                        GridPane customerInfo = new GridPane();
+                        Label infolabel = new Label("---KUNDENINFORMATIONEN---");
+                        Label name = new Label("Name: " + " Max Musterman");
+                        Label adresse = new Label("Adresse: " + "Arstalkajasdljk 23, 512434 asdasd");
+                        Label bookcount = new Label("Ausgeliehene Bücher :" + "12");
+                        Label trustfactor = new Label("Trustfactor: "+ "KEINE WEITEREN BÜCHER AUSLEIHEN");
+                        customerInfo.add(infolabel, 0, 0);
+                        customerInfo.add(name, 0, 1 );
+                        customerInfo.add(adresse, 0, 2);
+                        customerInfo.add(bookcount, 0, 3);
+
+                        //TODO
+                        TableView leasedBooks2 = new TableView();
+                        leasedBooks2.getColumns().addAll(colt1, colt2, colt3, colt4);
+                        leasedBooks2.autosize();
+                        leasedBooks2.setPrefHeight(9999999.9);
+                        midmenuright.getChildren().addAll(searchlayout2, customerInfo, leasedBooks2);
+                        midmenuright.autosize();
+
+                //TODO wenn eingeklappt nicht auf gleicher höhe
+
+                midmenue.getColumnConstraints().addAll(col1,col2);
+                midmenue.add(midmenuleft, 0, 0);
+                midmenue.add(midmenuright, 1, 0);
+                midmenue.autosize();
 
 
-        //Button functions
-        allertboxButton.setOnAction(e -> AltertBox.display("FehlerNachricht:  ","ACHTUNG ACHTUNG DIESES PROGRAMM IST NICHT MEHR SICHER"));
-        confirmboxButton.setOnAction(event -> {
-            boolean ergebnis = ConfirmBox.display("Frage: ", "ja/nö");
-            label.setText(String.valueOf(ergebnis));
-        } );
-        close.setOnAction(event -> {
-            closeProgramm();
-        });
-        commitButton.setOnAction(event -> {
-            System.out.println("Input:");
-            System.out.println(input.getText());
-        });
+        BorderPane.setAlignment(topmenue, Pos.TOP_CENTER);
+        root.autosize();
+        root.setTop(topmenue);
+        root.setCenter(midmenue);
 
-        searchButton.setOnAction(event -> {
-            leftside.getChildren().remove(auswahlLayout);
-            auswahlLayout.setMinSize(500, 300);
-            searchLayout.setMinSize(500, 300);
-            leftside.getChildren().addAll(searchLayout, auswahlLayout);
 
-        });
-
-        bookItButton.setOnAction(event -> {
-            leftside.getChildren().remove(searchLayout);
-            auswahlLayout.setMinSize(500, 600);
-            leftside.getChildren().addAll(auswahlLayout);
-
-        });
-
-        //Main
-        mainScene = new Scene(layout);
+        //MAIN WINDOW
+        mainScene = new Scene(root);
         mainWindow = primaryStage;
-        mainWindow.setMinWidth(MAIN_WINDOW_MIN_WIDTH);
-        mainWindow.setMinHeight(MAIN_WINDOW_MIN_HEIGHT);
+        mainWindow.setHeight(MAIN_WINDOW_MIN_HEIGHT);
+        mainWindow.setWidth(MAIN_WINDOW_MIN_WIDTH);
+        mainWindow.setTitle(MAIN_NAME);
         mainWindow.setScene(mainScene);
         mainWindow.show();
-        mainWindow.setOnCloseRequest(event ->{
+
+        mainWindow.setOnCloseRequest(event -> {
             event.consume();
             closeProgramm();
         });
-        mainWindow.setTitle(MAIN_NAME);
-
     }
 
-    private void closeProgramm(){
 
+    private void closeProgramm(){
         Boolean answer = ConfirmBox.display("Close the Programm", "Machs aus!");
         if (answer ==true) mainWindow.close();
     }
 
+    private TitledPane searchLayout(){
+
+
+        TitledPane searchlayout = new TitledPane();
+            GridPane layout = new GridPane();
+
+            //TODO - Erstellen der LöschButtons, Such und Operator felder - Dynamische Anzahl
+            if (searchTermsCounter>1) {
+                for (int i = 0; i <= searchTerms.size(); i++) {
+
+                }
+            }
+            TextField testfield = new TextField();
+            testfield.setPromptText("Suchbegriff");
+            ComboBox<String> operatorbox = new ComboBox<>();
+            operatorbox.getItems().addAll("=", "<", "<=", ">", ">=" , "ungleich");
+            Button searchButton = new Button("Suchen");
+            Button addSearchButton = new Button("+");
+            layout.add(testfield, 0,0);
+            layout.add(operatorbox, 1, 0);
+            layout.add(searchButton, 2, 0);
+            layout.add(addSearchButton, 0, 1);
+
+        searchlayout.setContent(layout);
+        searchlayout.autosize();
+
+        return searchlayout;
+    }
 
 }
