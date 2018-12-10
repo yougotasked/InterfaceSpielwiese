@@ -19,11 +19,15 @@ public class SearchLayout {
         this.titel = titel;
     }
 
-    public  TitledPane getSearchLayout(){
+    public TitledPane getSearchLayout(){
         return create(titel, searchcounter);
     }
 
-    private static   TitledPane create(String titel, int searchTermsCounter){
+    private static void addSearch(){
+        
+    }
+
+    private static TitledPane create(String titel, int searchTermsCounter){
         TitledPane searchlayout = new TitledPane();
 
         return searchlayout;

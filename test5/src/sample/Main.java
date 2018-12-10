@@ -167,10 +167,16 @@ public class Main extends Application {
         mainWindow.setScene(mainScene);
         mainWindow.show();
 
+        borrowButton.setOnAction(event -> {
+            Wizzard.show("ichwill");
+        });
+
+
         mainWindow.setOnCloseRequest(event -> {
             event.consume();
             closeProgramm();
         });
+
         mainWindow.heightProperty().addListener((obs, oldVal, newVal) -> {
             midMenue.setPrefHeight(mainWindow.getHeight());
             midmenuleft.setPrefHeight(mainWindow.getHeight());

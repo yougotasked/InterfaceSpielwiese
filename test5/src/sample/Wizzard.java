@@ -9,15 +9,9 @@ import javafx.stage.Stage;
 
 public class Wizzard {
 
-    public static void show(String type, String title, String message){
+    public static void show(String type){
 
-        if (type == "return"){
-            //Starte Rückgabe
-        }
-        else{
-            //Starte Verleih
 
-        }
 
         Button nextButton = new Button("weiter");
         Button backButton = new Button("zurück");
@@ -25,27 +19,38 @@ public class Wizzard {
 
         BorderPane mainLayout = new BorderPane();
         VBox mainLayoutMiddle = new VBox();
-        mainLayoutMiddle.getChildren().addAll(LayoutBox.searchLayout("Kunde", 0));
+        mainLayoutMiddle.getChildren().addAll(LayoutBox.searchLayout("Kunde", 0), nextButton, backButton, cancelButton);
         mainLayout.setCenter(mainLayoutMiddle);
 
         Stage wizzard = new Stage();
         Scene scene = new Scene(mainLayout);
         wizzard.initModality(Modality.APPLICATION_MODAL);
-        wizzard.setTitle(title);
+
         wizzard.setMinWidth(400);
-        wizzard.setMaxWidth(400);
-        wizzard.setMinHeight(150);
-        wizzard.setMaxHeight(150);
+        wizzard.setMaxWidth(200);
         wizzard.setScene(scene);
-        wizzard.showAndWait();
+        wizzard.show();
         wizzard.centerOnScreen();
+
+        if (type == "return"){
+            //Starte Rückgabe
+            wizzard.setTitle("Rückgabe Wizzard!");
+        }
+        else{
+            wizzard.setTitle("Ausleihen Wizzard!");
+        }
+        
 
         //Button funktionen
         cancelButton.setOnAction(event -> {
+            Boolean answer = ConfirmBox.display("Eingabe abbrechen", "Wollen sie den Wizzard wirklich verlassen?2 \n Alle eingegebenen Daten gehen dabei verloren!");
+            if (answer ==true) wizzard.close();
+        } );
+        wizzard.setOnCloseRequest(event -> {
+            event.consume();
             Boolean answer = ConfirmBox.display("Eingabe Abbrechen", "Wollen sie den Wizzard wirklich verlassen?2 \n Alle eingegebenen Daten gehen dabei verloren!");
             if (answer ==true) wizzard.close();
-
-        } );
+        });
 
 
     }
