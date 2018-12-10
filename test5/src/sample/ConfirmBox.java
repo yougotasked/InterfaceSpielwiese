@@ -21,21 +21,18 @@ public class ConfirmBox {
         frage.setTextAlignment(TextAlignment.CENTER);
         frage.setStyle("-fx-font-size: 20");
 
-
         Button yesButton = new Button("Ja!");
-        yesButton.setStyle("-fx-background-color: #c1ffc1; -fx-border-color: #000000");
+        yesButton.setStyle("-fx-background-color: forestgreen; -fx-border-color: #000000");
         yesButton.setPrefSize(60, 40);
+
+        Button noButton = new Button("Nö!");
+        noButton.setStyle("-fx-background-color: indianred; -fx-border-color: #000000");
+        noButton.setPrefSize(60, 40);
 
         yesButton.setOnAction(event -> {
             answer = true;
             answerme.close();
-
         });
-
-        Button noButton = new Button("Nö!");
-        noButton.setStyle("-fx-background-color: #fa8072; -fx-border-color: #000000");
-        noButton.setPrefSize(60, 40);
-
         noButton.setOnAction(event -> {
             answer = false;
             answerme.close();
@@ -51,6 +48,7 @@ public class ConfirmBox {
         VBox mainLayout = new VBox();
         mainLayout.getChildren().addAll(frage, buttonLayout);
         mainLayout.setAlignment(Pos.CENTER);
+        mainLayout.setStyle("-fx-background-color: #dfdfdf");
 
         Scene scene = new Scene(mainLayout);
         answerme.initModality(Modality.APPLICATION_MODAL);

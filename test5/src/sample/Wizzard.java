@@ -11,8 +11,6 @@ public class Wizzard {
 
     public static void show(String type){
 
-
-
         Button nextButton = new Button("weiter");
         Button backButton = new Button("zurück");
         Button cancelButton = new Button("Wizzard beenden");
@@ -22,10 +20,10 @@ public class Wizzard {
         mainLayoutMiddle.getChildren().addAll(LayoutBox.searchLayout("Kunde", 0), nextButton, backButton, cancelButton);
         mainLayout.setCenter(mainLayoutMiddle);
 
+        mainLayout.setStyle("-fx-background-color: #dfdfdf");
         Stage wizzard = new Stage();
         Scene scene = new Scene(mainLayout);
-        wizzard.initModality(Modality.APPLICATION_MODAL);
-
+        wizzard.initModality(Modality.APPLICATION_MODAL); //Fenster im hintergrund sind gefreezet
         wizzard.setMinWidth(400);
         wizzard.setMaxWidth(200);
         wizzard.setScene(scene);
@@ -39,7 +37,7 @@ public class Wizzard {
         else{
             wizzard.setTitle("Ausleihen Wizzard!");
         }
-        
+
 
         //Button funktionen
         cancelButton.setOnAction(event -> {

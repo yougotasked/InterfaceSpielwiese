@@ -163,6 +163,8 @@ public class Main extends Application {
         mainWindow = primaryStage;
         mainWindow.setHeight(MAIN_WINDOW_MIN_HEIGHT);
         mainWindow.setWidth(MAIN_WINDOW_MIN_WIDTH);
+        mainWindow.setMinWidth(MAIN_WINDOW_MIN_WIDTH/2);
+        mainWindow.setMinHeight(MAIN_WINDOW_MIN_HEIGHT/2);
         mainWindow.setTitle(MAIN_NAME);
         mainWindow.setScene(mainScene);
         mainWindow.show();
