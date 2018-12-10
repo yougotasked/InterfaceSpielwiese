@@ -89,16 +89,16 @@ public class Main extends Application  {
 
                             TableView leasedBooks = new TableView();
                             TableColumn colt1 = new TableColumn("ISBN");
-                            TableColumn colt2 = new TableColumn("Author ");
+                            TableColumn colt2 = new TableColumn("Autor ");
                             TableColumn colt3 = new TableColumn("Titel");
-                            TableColumn colt4 = new TableColumn("Return-date");
+                            TableColumn colt4 = new TableColumn("Rüggabetermin");
                             leasedBooks.getColumns().addAll(colt1, colt2, colt3, colt4);
 
                             leasedBooks.autosize();
                             leasedBooks.setPrefHeight(9999999.9);
                             books.setContent(leasedBooks);
                         //TAB Kunden
-                        Tab customers = new Tab("Customer");
+                        Tab customers = new Tab("Kunden");
 
                         //TAB Bücherverwaltung
                         Tab bookManagement = new Tab("Bücherverwaltung");
@@ -172,20 +172,28 @@ public class Main extends Application  {
 
 
         TitledPane searchlayout = new TitledPane();
+        
             GridPane layout = new GridPane();
-
+            ComboBox<String> operatorbox = new ComboBox<>();
+            operatorbox.getItems().addAll("=", "<", "<=", ">", ">=" , "ungleich");
+            operatorbox.getSelectionModel().selectFirst();
             //TODO - Erstellen der LöschButtons, Such und Operator felder - Dynamische Anzahl
-            if (searchTermsCounter>1) {
-                for (int i = 0; i <= searchTerms.size(); i++) {
+            int i = 0;
+            if (i < searchTermsCounter) {
+                for (i = 0; i <= searchTermsCounter; i++) {
+                    TextField textFieldinc = new TextField();
+                    Button searchButtoninc = new Button(Integer.toString(i));
+                    textFieldinc.setPromptText(Integer.toString(i));
+                    layout.add(textFieldinc,0, i );
+                    //layout.add(operatorbox, 1, i);
+                    layout.add(searchButtoninc, 2, i);
+                    
 
                 }
             }
             TextField testfield = new TextField();
             testfield.setPromptText("Suchbegriff");
-            ComboBox<String> operatorbox = new ComboBox<>();
-
-            operatorbox.getItems().addAll("=", "<", "<=", ">", ">=" , "ungleich");
-            operatorbox.getSelectionModel().selectFirst();
+           
             Button searchButton = new Button("Suchen");
             Button addSearchButton = new Button("+");
             layout.add(testfield, 0,0);
@@ -195,6 +203,7 @@ public class Main extends Application  {
 
         searchlayout.setContent(layout);
         searchlayout.autosize();
+        searchlayout.setText("Suche");
 
         return searchlayout;
     }
