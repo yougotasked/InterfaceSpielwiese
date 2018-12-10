@@ -15,10 +15,9 @@ public class Main extends Application {
 
     //Konstanten
     private static final String MAIN_NAME = "Buchmeister 2999.84";
-    private static final String COMMIT_BUTTON_TEXT = "Commit";
 
     private static final double MAIN_WINDOW_MIN_WIDTH = 1000;
-    private static final double MAIN_WINDOW_MIN_HEIGHT = 800;
+    private static final double MAIN_WINDOW_MIN_HEIGHT = 600;
 
     //Variablen
     private Stage mainWindow;
@@ -186,7 +185,7 @@ public class Main extends Application {
         Boolean answer = ConfirmBox.display("Programm schließen", "Wollen sie das Programm \nwirklich beenden?");
         if (answer == true) mainWindow.close();
     }
-    
+
     private void setStyle(javafx.scene.layout.Pane c) {
         try {
             c.setPadding(new Insets(3));
