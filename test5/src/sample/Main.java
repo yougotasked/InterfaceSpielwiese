@@ -17,7 +17,7 @@ import java.util.zip.GZIPInputStream;
 public class Main extends Application  {
 
     //Konstanten
-    private static final String MAIN_NAME = "Test - Alles könner";
+    private static final String MAIN_NAME = "Buchmeister 2999.84";
     private static final String COMMIT_BUTTON_TEXT = "Commit";
 
     private static final double MAIN_WINDOW_MIN_WIDTH = 800;
@@ -56,6 +56,9 @@ public class Main extends Application  {
 
             //Menü oben
             AnchorPane topmenue = new AnchorPane();
+            topmenue.setPadding(new Insets(3));
+            //topmenue.setBorder(new Border(new BorderStroke((Color.LIGHTGRAY),
+               // BorderStrokeStyle.DASHED, new CornerRadii(5), BorderWidths.DEFAULT)));
                 //links
                 HBox topmenuelinks = new HBox ();
                 topmenuelinks.getChildren().addAll(searchButton,testButton);
@@ -75,6 +78,10 @@ public class Main extends Application  {
                 GridPane midmenue = new GridPane();
                     //Links Hauptfeld
                     VBox midmenuleft = new VBox();
+                    midmenuleft.setPadding(new Insets(3));
+                    midmenuleft.setBorder(new Border(new BorderStroke((Color.LIGHTGRAY),
+                    BorderStrokeStyle.DASHED, new CornerRadii(5), BorderWidths.DEFAULT)));
+
 
                         ColumnConstraints col1 = new ColumnConstraints();
                         col1.setPercentWidth(65);
@@ -110,6 +117,10 @@ public class Main extends Application  {
 
                     //Rechts Infofeld
                     VBox midmenuright = new VBox();
+                    midmenuright.setPadding(new Insets(3));
+                    midmenuright.setBorder(new Border(new BorderStroke((Color.LIGHTGRAY),
+                            BorderStrokeStyle.DASHED, new CornerRadii(5), BorderWidths.DEFAULT)));
+
                         ColumnConstraints col2 = new ColumnConstraints();
                         col2.setPercentWidth(35);
                         TitledPane searchlayout2 = searchLayout();
