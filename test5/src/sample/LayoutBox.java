@@ -1,36 +1,57 @@
 package sample;
 
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.GridPane;
 
 public class LayoutBox {
 
+    public static TitledPane searchLayout(String titel, int searchTermsCounter){
+        TitledPane searchlayout = new TitledPane();
+        GridPane layout = new GridPane();
+        ComboBox<String> operatorbox = new ComboBox<>();
+        operatorbox.getItems().addAll("=", "<", "<=", ">", ">=" , "ungleich");
+        operatorbox.getSelectionModel().selectFirst();
+        //TODO - Erstellen der LöschButtons, Such und Operator felder - Dynamische Anzahl
+        int i = 0;
+        if (i < searchTermsCounter){
+            for (i = 0; i <= searchTermsCounter; i++) {
+                TextField textFieldinc = new TextField();
+                Button searchButtoninc = new Button(Integer.toString(i));
+                ComboBox<String> operatorhelper = new ComboBox<>();
+                operatorhelper.getItems().addAll("=", "<", "<=", ">", ">=" , "ungleich");
+                operatorbox.getSelectionModel().selectFirst();
+                textFieldinc.setPromptText(Integer.toString(i));
+                layout.add(textFieldinc,0, i );
+                layout.add(operatorhelper, 1, i);
+            }
+        }
+        TextField testfield = new TextField();
 
+        testfield.setPromptText("Suchbegriff");
 
+        Button searchButton = new Button("Suchen");
+        Button addSearchButton = new Button("+");
+        layout.add(testfield, 0,0);
+        layout.add(operatorbox, 1, 0);
+        layout.add(searchButton, 2, 0);
+        layout.add(addSearchButton, 0, i+1);
 
-    public static VBox createInfoLayout(double INFO_LAYOUT_MIN_WIDHT, double INFO_LAYOUT_MIN_HEIGHT, String kategorieText){
-        VBox infoLayout = new VBox();
-        infoLayout.setMinSize(INFO_LAYOUT_MIN_WIDHT, INFO_LAYOUT_MIN_HEIGHT);
-        Label label = new Label(kategorieText);
-        infoLayout.getChildren().addAll(label, new Label("askllkasgkjlasdkjlaskldlasdjklasd", new Label("askjgkjasgkjlasjklklajsgkjlasdkjlaskjlgkjlakjlsd")));
+        searchlayout.setContent(layout);
+        searchlayout.autosize();
+        searchlayout.setText(titel);
 
-        return infoLayout;
+        addSearchButton.setOnAction(event -> {
 
-    }
+        });
 
-    public static Pane createAuswahlLayout(double RESULT_LAYOUT_MIN_WIDHT,double RESULT_LAYOUT_MIN_HEIGHT, String text){
-        Pane auswahlLayout = new Pane();
-        TableView table = new TableView();
-        table.setMinSize(RESULT_LAYOUT_MIN_WIDHT, RESULT_LAYOUT_MIN_HEIGHT);
-        auswahlLayout.getChildren().addAll(table);
+        searchButton.setOnAction(event -> {
 
+        });
 
-
-
-        return  auswahlLayout;
+        return searchlayout;
     }
 
 
