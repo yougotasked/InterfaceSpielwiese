@@ -15,16 +15,9 @@ public class Main extends Application  {
 
     //Konstanten
     private static final String MAIN_NAME = "Buchmeister 2999.84";
-    private static final String COMMIT_BUTTON_TEXT = "Commit";
-
+    private static final String BACKGROUND_COLOR = "#dfdfdf";
     private static final double MAIN_WINDOW_MIN_WIDTH = 800;
     private static final double MAIN_WINDOW_MIN_HEIGHT = 600;
-    private static final double SEARCH_LAYOUT_MIN_WIDHT = 300;
-    private static final double SEARCH_LAYOUT_MIN_HEIGHT = 450;
-    private static final double RESULT_LAYOUT_MIN_WIDHT = 300;
-    private static final double RESULT_LAYOUT_MIN_HEIGHT = 450;
-    private static final double INFO_LAYOUT_MIN_WIDHT = 300;
-    private static final double INFO_LAYOUT_MIN_HEIGHT = 450;
 
     //Variablen
     private Stage mainWindow;
@@ -40,32 +33,35 @@ public class Main extends Application  {
 
     @Override
     public void start(Stage primaryStage) {
-
         //Buttons
             //Menue Oben / Main Menu / topmenue
             Button borrowButton = new Button("Leihen");
             borrowButton.setTooltip(new Tooltip("Leihen Wizzard starten"));
+            borrowButton.setStyle("-fx-text-alignment: center");
+            borrowButton.setPrefSize(100,30);
             Button helpButton = new Button("Hilfe");
             helpButton.setTooltip(new Tooltip("Hier wird ihnen geholfen!"));
+            helpButton.setPrefSize(100,30);
             Button returnButton = new Button("Zurücknehmen");
             returnButton.setTooltip(new Tooltip("Zurückgeben Wizzard starten"));
-
+            returnButton.setPrefSize(100,30);
 
         //Root Borderpane
         BorderPane root = new BorderPane();
 
             //Menü oben
             AnchorPane topMenue = new AnchorPane();
-            topMenue.setPadding(new Insets(3));
-            //topmenue.setBorder(new Border(new BorderStroke((Color.LIGHTGRAY),
-               // BorderStrokeStyle.DASHED, new CornerRadii(5), BorderWidths.DEFAULT)));
+
+            topMenue.setPadding(new Insets(0,3,0,3));
+            topMenue.setStyle("-fx-background-color:" + BACKGROUND_COLOR);
+            topMenue.setBorder(new Border(new BorderStroke((Color.BLACK),
+                    BorderStrokeStyle.SOLID, new CornerRadii(2), BorderWidths.DEFAULT)));
                 //links
                 HBox topmenuelinks = new HBox ();
                 topmenuelinks.getChildren().addAll(borrowButton,returnButton);
                 //rechts
                 HBox topmenuerechts = new HBox();
                 topmenuerechts.getChildren().addAll(helpButton);
-
             AnchorPane.setLeftAnchor(topmenuelinks, 0.0);
             AnchorPane.setRightAnchor(topmenuerechts, 0.0);
             topMenue.getChildren().addAll(topmenuelinks,topmenuerechts);
@@ -76,16 +72,22 @@ public class Main extends Application  {
             HBox buttomMenue = new HBox();
             Button buttommenuebutton = new Button("buttommenuebutton");
             buttomMenue.getChildren().setAll(buttommenuebutton);
+            //Main.setStyle(bottomMenue);
+
+            buttomMenue.setPadding(new Insets(0,3,0,3));
+            buttomMenue.setStyle("-fx-background-color:" + BACKGROUND_COLOR);
+            buttomMenue.setBorder(new Border(new BorderStroke((Color.BLACK),
+                BorderStrokeStyle.SOLID, new CornerRadii(2), BorderWidths.DEFAULT)));
+
             //Menü links
             //Menü mitte
                 GridPane midMenue = new GridPane();
                     //Links Hauptfeld
                     VBox midmenuleft = new VBox();
                     midmenuleft.setPadding(new Insets(3));
-                    //midmenuleft.setBorder(new Border(new BorderStroke((Color.LIGHTGRAY),
-                    //BorderStrokeStyle.DASHED, new CornerRadii(5), BorderWidths.DEFAULT)));
-
-
+                    midmenuleft.setBorder(new Border(new BorderStroke((Color.BLACK),
+                        BorderStrokeStyle.SOLID, new CornerRadii(2), BorderWidths.DEFAULT)));
+                    midmenuleft.setStyle("-fx-background-color: #dfdfdf");
                         ColumnConstraints col1 = new ColumnConstraints();
                         col1.setPercentWidth(65);
                         TitledPane searchlayout = LayoutBox.searchLayout("Suche", searchTermsCounter);
@@ -126,9 +128,9 @@ public class Main extends Application  {
                     //Rechts Infofeld
                     VBox midmenuright = new VBox();
                     midmenuright.setPadding(new Insets(3));
-                    midmenuright.setBorder(new Border(new BorderStroke((Color.LIGHTGRAY),
-                            BorderStrokeStyle.DASHED, new CornerRadii(5), BorderWidths.DEFAULT)));
-                    midmenuright.setStyle("-fx-background-color: #dfdfdf");
+                    midmenuright.setBorder(new Border(new BorderStroke((Color.BLACK),
+                            BorderStrokeStyle.SOLID, new CornerRadii(2), BorderWidths.DEFAULT)));
+                    midmenuright.setStyle("-fx-background-color:" + BACKGROUND_COLOR);
 
                         ColumnConstraints col2 = new ColumnConstraints();
                         col2.setPercentWidth(35);
@@ -167,7 +169,9 @@ public class Main extends Application  {
                 midMenue.getColumnConstraints().addAll(col1,col2);
                 midMenue.add(midmenuleft, 0, 0);
                 midMenue.add(midmenuright, 1, 0);
-                midMenue.autosize();
+
+                //midMenue.setPrefSize(midMenue.getWidth(), midMenue.getHeight());
+                //midMenue.autosize();
 
 
         BorderPane.setAlignment(topMenue, Pos.TOP_CENTER);
@@ -186,6 +190,13 @@ public class Main extends Application  {
         mainWindow.setScene(mainScene);
         mainWindow.show();
 
+
+        mainWindow.heightProperty().addListener((obs, oldVal, newVal) -> {
+            midmenuright.setPrefHeight(mainWindow.getHeight());
+            midmenuleft.setPrefHeight(mainWindow.getHeight());
+
+        });
+
         mainWindow.setOnCloseRequest(event -> {
             event.consume();
             closeProgramm();
@@ -197,7 +208,21 @@ public class Main extends Application  {
         Boolean answer = ConfirmBox.display("Programm schließen", "Wollen sie das Programm \nwirklich beenden?");
         if (answer ==true) mainWindow.close();
     }
+/*
+    private void setStyle(Object<HBox> object){
+        try {
+            object.setPadding(new Insets(3));
+            object.setBorder(new Border(new BorderStroke((Color.BLACK),
+                    BorderStrokeStyle.SOLID, new CornerRadii(2), BorderWidths.DEFAULT)));
+            object.setStyle("-fx-background-color: #dfdfdf");
+        }
+        catch (UnknownError error){
+
+        }
 
 
+    }
+
+            */
 
 }
