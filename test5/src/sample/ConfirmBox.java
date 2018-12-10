@@ -14,7 +14,7 @@ public class ConfirmBox {
 
     static boolean answer;
 
-    public static boolean display(String title, String message){
+    public static boolean display(String title, String message) {
 
         Stage answerme = new Stage();
         Label frage = new Label(message);
@@ -30,7 +30,7 @@ public class ConfirmBox {
             answer = true;
             answerme.close();
 
-        } );
+        });
 
         Button noButton = new Button("Nö!");
         noButton.setStyle("-fx-background-color: #fa8072; -fx-border-color: #000000");
@@ -40,7 +40,6 @@ public class ConfirmBox {
             answer = false;
             answerme.close();
         });
-
 
 
         HBox buttonLayout = new HBox();
