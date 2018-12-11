@@ -4,6 +4,8 @@ import javafx.scene.control.TitledPane;
 
 public class SearchLayout {
 
+    final static String[] OPERATOREN = {"=", "<", "<=", ">", ">=" , "ungleich"};
+
     private int i, searchcounter;
     private String titel;
 

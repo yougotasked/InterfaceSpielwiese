@@ -94,7 +94,6 @@ public class Main extends Application {
         TableColumn colt4 = new TableColumn("Rüggabetermin");
         leasedBooks.getColumns().addAll(colt1, colt2, colt3, colt4);
 
-
         leasedBooks.autosize();
         books.setContent(leasedBooks);
         //TAB Kunden
@@ -105,7 +104,6 @@ public class Main extends Application {
         chooselayout.getTabs().addAll(books, customers, bookManagement);
         midmenuleft.getChildren().addAll(searchlayout, chooselayout);
         midmenuleft.autosize();
-
 
         //Rechts Infofeld
         VBox midmenuright = new VBox();
@@ -133,12 +131,10 @@ public class Main extends Application {
         leasedBooks2.getColumns().addAll(colt1, colt2, colt3, colt4);
         leasedBooks2.autosize();
 
-
         AnchorPane saveMenue = new AnchorPane();
         Button save = new Button("Änderungen übernehmen");
         AnchorPane.setRightAnchor(save, 3.0);
         saveMenue.getChildren().addAll(save);
-
 
         midmenuright.getChildren().addAll(searchlayout2, customerInfo, leasedBooks2, saveMenue);
         midmenuright.autosize();
@@ -150,13 +146,11 @@ public class Main extends Application {
         midMenue.add(midmenuright, 1, 0);
         midMenue.autosize();
 
-
         BorderPane.setAlignment(topMenue, Pos.TOP_CENTER);
         root.autosize();
         root.setTop(topMenue);
         root.setCenter(midMenue);
         root.setBottom(buttomMenue);
-
 
         //MAIN WINDOW
         mainScene = new Scene(root);
@@ -171,6 +165,9 @@ public class Main extends Application {
 
         borrowButton.setOnAction(event -> {
             Wizzard.show("ichwill");
+        });
+        returnButton.setOnAction(event -> {
+            Wizzard.show("return");
         });
 
 
@@ -203,9 +200,5 @@ public class Main extends Application {
         } catch (Error error) {
             System.out.println("fehler beim stylen");
         }
-
-
     }
-
-
 }

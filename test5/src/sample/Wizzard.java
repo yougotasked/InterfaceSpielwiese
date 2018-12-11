@@ -3,6 +3,7 @@ package sample;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -17,9 +18,13 @@ public class Wizzard {
 
         BorderPane mainLayout = new BorderPane();
         VBox mainLayoutMiddle = new VBox();
-        mainLayoutMiddle.getChildren().addAll(LayoutBox.searchLayout("Kunde", 0), nextButton, backButton, cancelButton);
+        mainLayoutMiddle.getChildren().addAll(LayoutBox.searchLayout("Kunde", 0));
         mainLayout.setCenter(mainLayoutMiddle);
 
+        HBox buttonMenue = new HBox();
+        buttonMenue.getChildren().addAll(nextButton,backButton,cancelButton);
+
+        mainLayout.setBottom(buttonMenue);
         mainLayout.setStyle("-fx-background-color: #dfdfdf");
         Stage wizzard = new Stage();
         Scene scene = new Scene(mainLayout);

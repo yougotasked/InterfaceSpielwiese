@@ -7,12 +7,13 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 
 public class LayoutBox {
+    final static String[] OPERATOREN = {"=", "<", "<=", ">", ">=" , "ungleich"};
 
     public static TitledPane searchLayout(String titel, int searchTermsCounter){
         TitledPane searchlayout = new TitledPane();
         GridPane layout = new GridPane();
         ComboBox<String> operatorbox = new ComboBox<>();
-        operatorbox.getItems().addAll("=", "<", "<=", ">", ">=" , "ungleich");
+        operatorbox.getItems().addAll(OPERATOREN);
         operatorbox.getSelectionModel().selectFirst();
         //TODO - Erstellen der LöschButtons, Such und Operator felder - Dynamische Anzahl
         int i = 0;
