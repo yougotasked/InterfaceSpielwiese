@@ -19,22 +19,17 @@ public class SearchLayout{
     private String titel;
     private String type;
     private double höheHauptfenster;
-
     private TitledPane searchlayout;
     public Button searchbutton = new Button("Suchen!");
     public Button addSearchButton = new Button("+");
-
-    private int i;
-
+    private int i = 0;
     private List<Button> buttonFieldList = new ArrayList<>();
     private List<HBox> searchfields = new ArrayList<>();
 
 
-
-    public SearchLayout(int i, String titel, String type) {
-        this.i = i;
-        this.type = type;
+    public SearchLayout(String titel) {
         this.titel = titel;
+
         createNewSearchLayout();
         addSearchButton.setOnAction(event -> {
             addSearchField();
@@ -52,6 +47,7 @@ public class SearchLayout{
 
     private void createNewSearchLayout() {
         searchlayout = new TitledPane();
+        searchlayout.setText(titel);
         addSearchField();
     }
 
@@ -59,7 +55,7 @@ public class SearchLayout{
         HBox tempSearchField = new HBox();
 
         TextField searchwordInputField = new TextField();
-        searchwordInputField.setPromptText(new String("inT "+ i));
+        searchwordInputField.setPromptText(new String("Suchfeld"+ i));
 
         ComboBox<String> operatorComboBox = new ComboBox();
         operatorComboBox.getItems().addAll(OPERATOREN);
@@ -104,7 +100,6 @@ public class SearchLayout{
         int j= 0;
         for(HBox hbox : searchfields){
             layout.add(hbox, 0, j);
-
             j++;
         }
         //TODO - Kosmetische änderung

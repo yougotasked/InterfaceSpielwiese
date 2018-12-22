@@ -22,12 +22,11 @@ public class ContentCreater{
     }
 
     private void start(){
+        //TODO
         if (type == ""){
         }
         result = getSelectedTabMainMenue("test");
-
     }
-
 
     private GridPane getSelectedTabMainMenue(String auswahl){
         //GRIDPANE
@@ -41,7 +40,7 @@ public class ContentCreater{
         col1.setPercentWidth(65);
 
        // TitledPane searchlayout = LayoutBox.searchLayout("Suche",searchTermsCounter );
-        SearchLayout sl = new SearchLayout(0, "as", "asd");
+        SearchLayout sl = new SearchLayout( "Büchersuche");
         TitledPane searchlayout = sl.getSearchlayout();
 
         TableView leasedBooks = new TableView();
@@ -61,8 +60,9 @@ public class ContentCreater{
 
         ColumnConstraints col2 = new ColumnConstraints();
         col2.setPercentWidth(35);
-        TitledPane searchlayout2 = LayoutBox.searchLayout("Kundensuche", searchTermsCounter);
+       // TitledPane searchlayout2 = LayoutBox.searchLayout("Kundensuche", searchTermsCounter);
 
+        TitledPane searchlayout2 = (new SearchLayout("Kundensuche")).getSearchlayout();
         GridPane customerInfo = new GridPane();
         Label infolabel = new Label("---KUNDENINFORMATIONEN---");
         Label name = new Label("Name: " + " Max Musterman");

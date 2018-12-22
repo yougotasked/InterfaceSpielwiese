@@ -28,23 +28,12 @@ public class Wizzard {
         BorderPane mainLayout = new BorderPane();
         VBox mainLayoutMiddle = new VBox();
 
-
-
-
-
-
-
  //       SearchLayout searchLayout = new SearchLayout(0, "asd", "asd");
  //       TitledPane searchL = searchLayout.createNewSearchLayout();
         mainLayout.setCenter(mainLayoutMiddle);
 
 
-
-
-
-
         mainLayoutMiddle.getChildren().addAll(buttonMenue);
-
 
         mainLayout.setStyle("-fx-background-color: #dfdfdf");
 

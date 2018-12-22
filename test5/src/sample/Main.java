@@ -17,23 +17,19 @@ public class Main extends Application {
 
     //Konstanten
     private static final String MAIN_NAME = "Buchmeister 2999.84";
-
     private static final double MAIN_WINDOW_MIN_WIDTH = 1000;
     private static final double MAIN_WINDOW_MIN_HEIGHT = 600;
-
     //Variablen
     private Stage mainWindow;
     private Scene mainScene;
 
 
     public static void main(String[] args) {
-
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
-
         //Buttons
         //Menue Oben / Main Menu / topmenue
         Button borrowButton = new Button("Leihen");
@@ -42,23 +38,16 @@ public class Main extends Application {
         helpButton.setTooltip(new Tooltip("Hier wird ihnen geholfen!"));
         Button returnButton = new Button("Zurücknehmen");
         returnButton.setTooltip(new Tooltip("Zurückgeben Wizzard starten"));
-
         //Root Borderpane
         BorderPane root = new BorderPane();
-
         //Borderpane oben
-
         //Borderpane rechts
         //Borderpane unten
-
-
         HBox buttomMenue = new HBox();
         Button buttommenuebutton = new Button("buttommenuebutton");
         buttomMenue.getChildren().setAll(buttommenuebutton);
         setStyle(buttomMenue);
         //Borderpane links
-
-
         //Borderpane mitte
             //TAB MENUE
         TabPane mainTabMenue = new TabPane();
@@ -72,7 +61,6 @@ public class Main extends Application {
 
         mainTabMenue.getTabs().addAll(hauptübersicht,leihen, zurueckgeben,mitgliederverwaltung, buecherverwaltung, rechteverwaltung, hilfe );
         mainTabMenue.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
             //TabMenue füllung
         ContentCreater hauptübersichtConent = new ContentCreater("asdaf");
         hauptübersicht.setContent(hauptübersichtConent.result);
@@ -104,8 +92,6 @@ public class Main extends Application {
         mainWindow.setScene(mainScene);
         mainWindow.show();
 
-
-
         mainWindow.setOnCloseRequest(event -> {
             event.consume();
             closeProgramm();
@@ -113,7 +99,6 @@ public class Main extends Application {
 
         mainWindow.heightProperty().addListener((obs, oldVal, newVal) -> {
             hauptübersichtConent.setHeightPref(mainWindow.getHeight());
-
         });
     }
 
