@@ -1,15 +1,17 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class Main extends Application {
 
@@ -22,8 +24,6 @@ public class Main extends Application {
     //Variablen
     private Stage mainWindow;
     private Scene mainScene;
-    private int searchTermsCounter = 0;
-    private List<String> searchTerms;
 
 
     public static void main(String[] args) {
@@ -46,110 +46,51 @@ public class Main extends Application {
         //Root Borderpane
         BorderPane root = new BorderPane();
 
-        //Menü oben
-        AnchorPane topMenue = new AnchorPane();
-        topMenue.setPadding(new Insets(3));
-        setStyle(topMenue);
+        //Borderpane oben
 
-        //links
-        HBox topMenueLinks = new HBox();
-        topMenueLinks.getChildren().addAll(borrowButton, returnButton);
-        //rechts
-        HBox topMenueRechts = new HBox();
-        topMenueRechts.getChildren().addAll(helpButton);
+        //Borderpane rechts
+        //Borderpane unten
 
-        AnchorPane.setLeftAnchor(topMenueLinks, 0.0);
-        AnchorPane.setRightAnchor(topMenueRechts, 0.0);
-        topMenue.getChildren().addAll(topMenueLinks, topMenueRechts);
-        topMenue.autosize();
 
-        //Menü rechts
-        //Menü unten
         HBox buttomMenue = new HBox();
         Button buttommenuebutton = new Button("buttommenuebutton");
         buttomMenue.getChildren().setAll(buttommenuebutton);
         setStyle(buttomMenue);
-        //Menü links
-        //Menü mitte
-        GridPane midMenue = new GridPane();
-        setStyle(midMenue);
-        midMenue.setVgap(0);
-        //Links Hauptfeld
-        VBox midmenuleft = new VBox();
-        setStyle(midmenuleft);
-        ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(65);
-        TitledPane searchlayout = LayoutBox.searchLayout("Suche", searchTermsCounter);
-        TabPane chooselayout = new TabPane();
-        chooselayout.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        chooselayout.autosize();
+        //Borderpane links
 
-        //TODO (ScrollPane ??)
-        //TAB BÜCHER
-        Tab books = new Tab("Bücher");
-        TableView leasedBooks = new TableView();
-        TableColumn colt1 = new TableColumn("ISBN");
-        TableColumn colt2 = new TableColumn("Autor ");
-        TableColumn colt3 = new TableColumn("Titel");
-        TableColumn colt4 = new TableColumn("Rüggabetermin");
-        leasedBooks.getColumns().addAll(colt1, colt2, colt3, colt4);
 
-        leasedBooks.autosize();
-        books.setContent(leasedBooks);
-        //TAB Kunden
-        Tab customers = new Tab("Kunden");
+        //Borderpane mitte
+            //TAB MENUE
+        TabPane mainTabMenue = new TabPane();
+        Tab hauptübersicht = new Tab("Übersicht");
+        Tab leihen = new Tab("Leihen");
+        Tab zurueckgeben = new Tab("Zurückgabe");
+        Tab mitgliederverwaltung = new Tab("Mitgliederverwaltung");
+        Tab buecherverwaltung = new Tab ("Bücherverwaltung");
+        Tab rechteverwaltung = new Tab("Rechteverwaltung");
+        Tab hilfe = new Tab("HILFEEE!");
 
-        //TAB Bücherverwaltung
-        Tab bookManagement = new Tab("Bücherverwaltung");
-        chooselayout.getTabs().addAll(books, customers, bookManagement);
-        midmenuleft.getChildren().addAll(searchlayout, chooselayout);
-        midmenuleft.autosize();
+        mainTabMenue.getTabs().addAll(hauptübersicht,leihen, zurueckgeben,mitgliederverwaltung, buecherverwaltung, rechteverwaltung, hilfe );
+        mainTabMenue.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        //Rechts Infofeld
-        VBox midmenuright = new VBox();
-        setStyle(midmenuright);
+            //TabMenue füllung
+        ContentCreater hauptübersichtConent = new ContentCreater("asdaf");
+        hauptübersicht.setContent(hauptübersichtConent.result);
+        setStyle(hauptübersichtConent.result);
 
-        ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(35);
-        TitledPane searchlayout2 = LayoutBox.searchLayout("Kundensuche", searchTermsCounter);
+        Wizzard wizzard = new Wizzard();
+        leihen.setContent(wizzard.getMainLayout());
+        mainTabMenue.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+                if (newValue.getText() =="Leihen") System.out.println("augewählter TAB: LEIHEN");
+                else System.out.println("augewählter TAB =/= Nicht leihen");
+            }
+        });
 
-        GridPane customerInfo = new GridPane();
-        Label infolabel = new Label("---KUNDENINFORMATIONEN---");
-        Label name = new Label("Name: " + " Max Musterman");
-        Label adresse = new Label("Adresse: " + "Arstalkajasdljk 23, 512434 asdasd");
-        Label bookcount = new Label("Ausgeliehene Bücher :" + "12");
-        Label trustfactor = new Label("Trustfactor: " + "20");
-        customerInfo.add(infolabel, 0, 0);
-        customerInfo.add(name, 0, 1);
-        customerInfo.add(adresse, 0, 2);
-        customerInfo.add(trustfactor, 0, 3);
-        customerInfo.add(bookcount, 0, 4);
+        leihen.setContent(wizzard.show("asdf"));
 
-        //TODO (ScrollPane ??)
-        //ScrollPane scrollPanebooksrightside = new ScrollPane();
-        TableView leasedBooks2 = new TableView();
-        leasedBooks2.getColumns().addAll(colt1, colt2, colt3, colt4);
-        leasedBooks2.autosize();
-
-        AnchorPane saveMenue = new AnchorPane();
-        Button save = new Button("Änderungen übernehmen");
-        AnchorPane.setRightAnchor(save, 3.0);
-        saveMenue.getChildren().addAll(save);
-
-        midmenuright.getChildren().addAll(searchlayout2, customerInfo, leasedBooks2, saveMenue);
-        midmenuright.autosize();
-
-        //TODO wenn eingeklappt nicht auf gleicher höhe
-
-        midMenue.getColumnConstraints().addAll(col1, col2);
-        midMenue.add(midmenuleft, 0, 0);
-        midMenue.add(midmenuright, 1, 0);
-        midMenue.autosize();
-
-        BorderPane.setAlignment(topMenue, Pos.TOP_CENTER);
-        root.autosize();
-        root.setTop(topMenue);
-        root.setCenter(midMenue);
+        root.setCenter(mainTabMenue);
         root.setBottom(buttomMenue);
 
         //MAIN WINDOW
@@ -163,12 +104,6 @@ public class Main extends Application {
         mainWindow.setScene(mainScene);
         mainWindow.show();
 
-        borrowButton.setOnAction(event -> {
-            Wizzard.show("ichwill");
-        });
-        returnButton.setOnAction(event -> {
-            Wizzard.show("return");
-        });
 
 
         mainWindow.setOnCloseRequest(event -> {
@@ -177,12 +112,8 @@ public class Main extends Application {
         });
 
         mainWindow.heightProperty().addListener((obs, oldVal, newVal) -> {
-            midMenue.setPrefHeight(mainWindow.getHeight());
-            midmenuleft.setPrefHeight(mainWindow.getHeight());
-            midmenuright.setPrefHeight(mainWindow.getHeight());
-            chooselayout.setPrefHeight(mainWindow.getHeight());
-            leasedBooks.setPrefHeight(mainWindow.getHeight());
-            leasedBooks2.setPrefHeight(mainWindow.getHeight());
+            hauptübersichtConent.setHeightPref(mainWindow.getHeight());
+
         });
     }
 
@@ -190,6 +121,7 @@ public class Main extends Application {
         Boolean answer = ConfirmBox.display("Programm schließen", "Wollen sie das Programm \nwirklich beenden?");
         if (answer == true) mainWindow.close();
     }
+
 
     private void setStyle(javafx.scene.layout.Pane c) {
         try {

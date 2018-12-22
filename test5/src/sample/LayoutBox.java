@@ -7,7 +7,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 
 public class LayoutBox {
-    final static String[] OPERATOREN = {"=", "<", "<=", ">", ">=" , "ungleich"};
+    final static String[] OPERATOREN = {"=", "<", "<=", ">", ">=" , "ungleich", "enthält"};
 
     public static TitledPane searchLayout(String titel, int searchTermsCounter){
         TitledPane searchlayout = new TitledPane();

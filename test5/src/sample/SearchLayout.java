@@ -1,39 +1,146 @@
 package sample;
 
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
-public class SearchLayout {
+import java.util.ArrayList;
+import java.util.List;
 
-    final static String[] OPERATOREN = {"=", "<", "<=", ">", ">=" , "ungleich"};
+public class SearchLayout{
 
-    private int i, searchcounter;
+    final static String[] OPERATOREN = {"=", "<", "<=", ">", ">=", "ungleich", "enthält"};
+    final static String[] KATEGORIEN = {"Autor", "Titel", "Jahr", "Auflagen"};
+
     private String titel;
+    private String type;
+    private double höheHauptfenster;
 
-    public SearchLayout() {
-        this.i = 0;
-        this.searchcounter = 0;
-        this.titel = "Suchfeld";
+    private TitledPane searchlayout;
+    public Button searchbutton = new Button("Suchen!");
+    public Button addSearchButton = new Button("+");
 
-    }
-    public SearchLayout(int i, int searchcounter, String titel){
+    private int i;
+
+    private List<Button> buttonFieldList = new ArrayList<>();
+    private List<HBox> searchfields = new ArrayList<>();
+
+
+
+    public SearchLayout(int i, String titel, String type) {
         this.i = i;
-        this.searchcounter = searchcounter;
+        this.type = type;
         this.titel = titel;
+        createNewSearchLayout();
+        addSearchButton.setOnAction(event -> {
+            addSearchField();
+            System.out.println("addsearchfield");
+        });
+        searchbutton.setOnAction(event -> {
+            search();
+        });
+
     }
 
-    public TitledPane getSearchLayout(){
-        return create(titel, searchcounter);
-    }
-
-    private static void addSearch(){
-        
-    }
-
-    private static TitledPane create(String titel, int searchTermsCounter){
-        TitledPane searchlayout = new TitledPane();
-
+    public TitledPane getSearchlayout() {
         return searchlayout;
     }
 
+    private void createNewSearchLayout() {
+        searchlayout = new TitledPane();
+        addSearchField();
+    }
 
+    public void addSearchField() {
+        HBox tempSearchField = new HBox();
+
+        TextField searchwordInputField = new TextField();
+        searchwordInputField.setPromptText(new String("inT "+ i));
+
+        ComboBox<String> operatorComboBox = new ComboBox();
+        operatorComboBox.getItems().addAll(OPERATOREN);
+        operatorComboBox.getSelectionModel().selectFirst();
+
+        ComboBox<String> categoryComboBox = new ComboBox<>();
+        categoryComboBox.getItems().addAll(KATEGORIEN);
+        categoryComboBox.getSelectionModel().selectFirst();
+
+
+        Button deleteSearchButton = new Button("-");
+        deleteSearchButton.setOnAction(event -> {
+            int ij = 0;
+            for (HBox hbox : searchfields){
+                String hboxChildrenString = hbox.getChildren().get(3).toString();
+                String eventsourceString = event.getSource().toString();
+               if(hboxChildrenString.toUpperCase().contains(eventsourceString.toUpperCase())){
+                   deletesearch(ij);
+                   break;
+               }
+                ij++;
+            }
+
+                    });
+        tempSearchField.getChildren().addAll(searchwordInputField,operatorComboBox, categoryComboBox, deleteSearchButton);
+        searchfields.add(tempSearchField);
+
+        Button tempButton = new Button("-");
+        if (i >= 1) {
+            if (i == 1) {
+                buttonFieldList.add(tempButton);
+            }
+            buttonFieldList.add(tempButton);
+        }
+        i++;
+        create();
+    }
+
+
+    private void create() {
+        GridPane layout = new GridPane();
+        int j= 0;
+        for(HBox hbox : searchfields){
+            layout.add(hbox, 0, j);
+
+            j++;
+        }
+        //TODO - Kosmetische änderung
+        layout.add(searchbutton, 1,0);
+        layout.add(addSearchButton,0, j);
+
+        searchlayout.setContent(layout);
+    }
+
+    public void addSearch() {
+        addSearchField();
+        create();
+    }
+
+    public void deletesearch(int i) {
+        searchfields.remove(i);
+        i--;
+        create();
+    }
+
+    public void search(){
+        for (HBox hbox : searchfields){
+            Node searchwordInputField = hbox.getChildren().get(0);
+            Node operatorBox = hbox.getChildren().get(1);
+            Node categoryBox = hbox.getChildren().get(2);
+            if(searchwordInputField instanceof TextField) {
+                //TODO - Verwertung der Eingabe
+                     System.out.println("Text : " + ((TextField) searchwordInputField).getText());
+            }
+            if(operatorBox instanceof  ComboBox){
+
+                System.out.println("Gewählter Operator : " +   ((ComboBox) operatorBox).getSelectionModel().getSelectedItem());
+            }
+            if(categoryBox instanceof ComboBox){
+                System.out.println("Gewählte Kategorie : " +   ((ComboBox) categoryBox).getSelectionModel().getSelectedItem());
+            }
+        }
+    }
 }
