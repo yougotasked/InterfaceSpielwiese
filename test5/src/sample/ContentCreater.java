@@ -51,7 +51,12 @@ public class ContentCreater{
         leasedBooks.getColumns().addAll(colt1, colt2, colt3, colt4);
         leasedBooks.autosize();
 
-        midmenuleft.getChildren().addAll(searchlayout, leasedBooks);
+
+        ButtonBar buttonMenueLeftSide = new ButtonBar();
+
+        Button submitselected = new Button("Hinzufügen");
+        buttonMenueLeftSide.getButtons().addAll(submitselected);
+        midmenuleft.getChildren().addAll(searchlayout, leasedBooks, buttonMenueLeftSide);
         midmenuleft.autosize();
 
         //Rechts Infofeld
@@ -89,7 +94,7 @@ public class ContentCreater{
         midmenuright.getChildren().addAll(searchlayout2, customerInfo, leasedBooks2, saveMenue);
         midmenuright.autosize();
 
-        //TODO wenn eingeklappt nicht auf gleicher höhe
+
 
         midMenue.getColumnConstraints().addAll(col1, col2);
         midMenue.add(midmenuleft, 0, 0);
