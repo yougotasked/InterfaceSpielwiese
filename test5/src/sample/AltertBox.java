@@ -31,10 +31,7 @@ public class AltertBox {
         vertlayout.getChildren().addAll(fehlerNachricht, okButton,test);
         vertlayout.setAlignment(Pos.BOTTOM_CENTER);
 
-
-
         Scene scene1 = new Scene(vertlayout);
-
 
         allertWindow.initModality(Modality.APPLICATION_MODAL);
         allertWindow.setTitle("Fehler" + title);

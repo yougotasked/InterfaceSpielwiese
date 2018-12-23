@@ -23,7 +23,6 @@ public class Main extends Application {
     private Stage mainWindow;
     private Scene mainScene;
 
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -49,19 +48,18 @@ public class Main extends Application {
         setStyle(buttomMenue);
         //Borderpane links
         //Borderpane mitte
-            //TAB MENUE
+        //TAB MENUE
         TabPane mainTabMenue = new TabPane();
         Tab hauptübersicht = new Tab("Übersicht");
         Tab leihen = new Tab("Leihen");
         Tab zurueckgeben = new Tab("Zurückgabe");
         Tab mitgliederverwaltung = new Tab("Mitgliederverwaltung");
-        Tab buecherverwaltung = new Tab ("Bücherverwaltung");
+        Tab buecherverwaltung = new Tab("Bücherverwaltung");
         Tab rechteverwaltung = new Tab("Rechteverwaltung");
         Tab hilfe = new Tab("HILFEEE!");
-
-        mainTabMenue.getTabs().addAll(hauptübersicht,leihen, zurueckgeben,mitgliederverwaltung, buecherverwaltung, rechteverwaltung, hilfe );
+        mainTabMenue.getTabs().addAll(hauptübersicht, leihen, zurueckgeben, mitgliederverwaltung, buecherverwaltung, rechteverwaltung, hilfe);
         mainTabMenue.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-            //TabMenue füllung
+        //TabMenue füllung
         ContentCreater hauptübersichtConent = new ContentCreater("asdaf");
         hauptübersicht.setContent(hauptübersichtConent.result);
         setStyle(hauptübersichtConent.result);
@@ -71,7 +69,7 @@ public class Main extends Application {
         mainTabMenue.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-                if (newValue.getText() =="Leihen") System.out.println("augewählter TAB: LEIHEN");
+                if (newValue.getText() == "Leihen") System.out.println("augewählter TAB: LEIHEN");
                 else System.out.println("augewählter TAB =/= Nicht leihen");
             }
         });
@@ -86,8 +84,8 @@ public class Main extends Application {
         mainWindow = primaryStage;
         mainWindow.setHeight(MAIN_WINDOW_MIN_HEIGHT);
         mainWindow.setWidth(MAIN_WINDOW_MIN_WIDTH);
-        mainWindow.setMinWidth(MAIN_WINDOW_MIN_WIDTH/2);
-        mainWindow.setMinHeight(MAIN_WINDOW_MIN_HEIGHT/2);
+        mainWindow.setMinWidth(MAIN_WINDOW_MIN_WIDTH / 2);
+        mainWindow.setMinHeight(MAIN_WINDOW_MIN_HEIGHT / 2);
         mainWindow.setTitle(MAIN_NAME);
         mainWindow.setScene(mainScene);
         mainWindow.show();
@@ -106,7 +104,6 @@ public class Main extends Application {
         Boolean answer = ConfirmBox.display("Programm schließen", "Wollen sie das Programm \nwirklich beenden?");
         if (answer == true) mainWindow.close();
     }
-
 
     private void setStyle(javafx.scene.layout.Pane c) {
         try {

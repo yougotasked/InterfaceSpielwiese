@@ -28,13 +28,8 @@ public class Wizzard {
         BorderPane mainLayout = new BorderPane();
         VBox mainLayoutMiddle = new VBox();
 
- //       SearchLayout searchLayout = new SearchLayout(0, "asd", "asd");
- //       TitledPane searchL = searchLayout.createNewSearchLayout();
         mainLayout.setCenter(mainLayoutMiddle);
-
-
         mainLayoutMiddle.getChildren().addAll(buttonMenue);
-
         mainLayout.setStyle("-fx-background-color: #dfdfdf");
 
         Stage wizzard = new Stage();
@@ -42,7 +37,6 @@ public class Wizzard {
         wizzard.setMinWidth(400);
         wizzard.setMaxWidth(200);
         wizzard.setScene(scene);
-
 
         if (type == "return"){
             //Starte Rückgabe
@@ -57,9 +51,6 @@ public class Wizzard {
             Boolean answer = ConfirmBox.display("Eingabe abbrechen", "Wollen sie den Wizzard wirklich verlassen?2 \n Alle eingegebenen Daten gehen dabei verloren!");
             if (answer ==true) wizzard.close();
         } );
-
-
-
 
         return mainLayout;
     }
