@@ -26,6 +26,7 @@ public class SearchLayout{
     public SearchLayout(String titel) {
         this.titel = titel;
         createNewSearchLayout();
+
         addSearchButton.setOnAction(event -> {
             addSearchField();
             System.out.println("addsearchfield");
@@ -33,7 +34,6 @@ public class SearchLayout{
         searchbutton.setOnAction(event -> {
             search();
         });
-
     }
 
     public TitledPane getSearchlayout() {
@@ -57,6 +57,8 @@ public class SearchLayout{
         categoryComboBox.getItems().addAll(KATEGORIEN);
         categoryComboBox.getSelectionModel().selectFirst();
         Button deleteSearchButton = new Button("-");
+
+        //DeleteSearchButton function
         deleteSearchButton.setOnAction(event -> {
             int ij = 0;
             for (HBox hbox : searchfields){
@@ -64,12 +66,13 @@ public class SearchLayout{
                 String eventsourceString = event.getSource().toString();
                if(hboxChildrenString.toUpperCase().contains(eventsourceString.toUpperCase())){
                    deletesearch(ij);
+                   create();
                    break;
                }
                 ij++;
             }
-
                     });
+
         tempSearchField.getChildren().addAll(searchwordInputField,operatorComboBox, categoryComboBox, deleteSearchButton);
         searchfields.add(tempSearchField);
         i++;
@@ -91,13 +94,11 @@ public class SearchLayout{
 
     public void addSearch() {
         addSearchField();
-        create();
     }
 
     public void deletesearch(int i) {
         searchfields.remove(i);
         i--;
-        create();
     }
 
     public void search(){
