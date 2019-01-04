@@ -1,10 +1,7 @@
 package sample;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
@@ -12,16 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchLayout{
-
+    //Konstanten
     final static String[] OPERATOREN = {"=", "<", "<=", ">", ">=", "ungleich", "enthält"};
     final static String[] KATEGORIEN = {"Autor", "Titel", "Jahr", "Auflagen"};
+    final static String[] COLUMNTEST = {"Autor", "Titel", "Jahr", "Stückzahl", "usw"};
+
     private String titel;
     private TitledPane searchlayout;
     public Button searchbutton = new Button("Suchen!");
     public Button addSearchButton = new Button("+");
     private int i = 0;
-    private List<HBox> searchfields = new ArrayList<>();
 
+    private List<HBox> searchfields = new ArrayList<>();
+    private List<TableColumn> resultColumnField = new ArrayList<>();
+
+    private TableView resutlTable = new TableView();
 
     public SearchLayout(String titel) {
         this.titel = titel;
@@ -79,7 +81,6 @@ public class SearchLayout{
         create();
     }
 
-
     private void create() {
         GridPane layout = new GridPane();
         int j= 0;
@@ -116,6 +117,18 @@ public class SearchLayout{
             if(categoryBox instanceof ComboBox){
                 System.out.println("Gewählte Kategorie : " +   ((ComboBox) categoryBox).getSelectionModel().getSelectedItem());
             }
+        }
+    }
+
+    public void createTable(){
+        for(int f=0; resutlTable.getColumns().size() < f; f++ ){
+
+            //TODO Beschriftung setzen
+            TableColumn tableColumnTemp = new TableColumn();
+            resultColumnField.add(tableColumnTemp);
+        }
+        for(int f = 0; resultColumnField.size() < f; f++){
+            resutlTable.getColumns().add(resultColumnField.get(f));
         }
     }
 }

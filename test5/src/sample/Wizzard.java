@@ -40,7 +40,7 @@ public class Wizzard {
 
         mainLayoutMiddle.getChildren().addAll(customerSearch, bookSearch);
         mainLayout.setCenter(mainLayoutMiddle);
-        mainLayoutMiddle.getChildren().addAll(buttonMenue);
+        mainLayout.setBottom(buttonMenue);
         mainLayout.setStyle("-fx-background-color: #dfdfdf");
 
         Stage wizzard = new Stage();
